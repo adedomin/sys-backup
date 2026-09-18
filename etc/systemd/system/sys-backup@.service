@@ -1,0 +1,10 @@
+[Unit]
+Description=Do full system backup on harddrive insertion
+ConditionPathExists=/etc/sys-backup/%i
+ConditionPathExists=/etc/sys-backup/autorun
+
+[Service]
+User=root
+Type=oneshot
+IOSchedulingClass=idle
+ExecStart=/usr/local/sbin/sys-backup.sh backup %i

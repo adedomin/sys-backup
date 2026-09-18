@@ -1,0 +1,12 @@
+ACTION=="add" \
+, SUBSYSTEM=="block" \
+, IMPORT{file}="/etc/sys-backup/$env{ID_FS_UUID}"
+
+ENV{SYS_BACKUP_ENABLED}!="1", GOTO="99_sys_backup_end"
+
+ACTION=="add" \
+, SUBSYSTEM=="block" \
+, TAG+="systemd" \
+, ENV{UDISKS_IGNORE}="1" \
+, ENV{SYSTEMD_WANTS}+="sys-backup@%E{ID_FS_UUID}.service"
+LABEL="99_sys_backup_end"
