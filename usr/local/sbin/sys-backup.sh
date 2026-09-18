@@ -53,7 +53,7 @@ fi
 mount -o compress-force=zstd /dev/mapper/luks-backup-"$disk_uuid" /backup || exit
 [[ "$mount_only" = 1 ]] && exit 0
 
-btrbk --config /etc/btrbk/btrbk.conf --verbose run || exit
+btrbk --config "/etc/btrbk/$disk_uuid.conf" --verbose run || exit
 
 if [[ ! -e /backup/.btrfs-scrub-marker ]] \
    || ! find /backup -maxdepth 1 -mtime +29 -name '.btrfs-scrub-marker' -exec false {} +
